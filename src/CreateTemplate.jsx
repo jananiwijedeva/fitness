@@ -5,23 +5,19 @@ import {
   Radio,
   RadioGroup,
   FormControlLabel,
-  ButtonGroup,
   Button,
   Box,
   Typography,
 } from "@mui/material";
-import MarketingIcon from "@mui/icons-material/BusinessCenter";
-import BuildIcon from "@mui/icons-material/Build";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import EditTemplate from "./EditTemplate";
+import SetUpTemplate from "./SetUpTemplate";
 
 
 const MainDiv = styled("div")({
-  display: "flex",
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  height: "100vh",
+  height: "auto",
   width: "100vw",
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
@@ -29,22 +25,6 @@ const MainDiv = styled("div")({
   backgroundColor: "#f0f5ff",
 });
 
-const CustomButtonGroup = styled(ButtonGroup)(({ theme }) => ({
-  width: "100%",
-  "& .MuiButton-root": {
-    flex: 1,
-    backgroundColor: "white",
-    color: "black",
-  },
-  "& .MuiButton-root:hover": {
-    backgroundColor: "lightgray",
-  },
-  "& .MuiButton-root.Mui-selected": {
-    backgroundColor: "lightgray !important",
-    color: "#fff !important",
-    }
-
-}));
 
 const BottomBar = styled(Box)({
   display: "flex",
@@ -62,26 +42,30 @@ const BottomBar = styled(Box)({
 
 function CreateTemplate() {
   const [mainSelection, setMainSelection] = useState("Set Up Template");
-  const [subSelection, setSubSelection] = useState("Marketing");
-  const [selectedValue, setSelectedValue] = useState("custom");
 
   const handleMainChange = (event) => {
     const value = event.target.value;
     setMainSelection(value);
-    setSubSelection(value);
   };
 
-  const handleSubChange = (value) => {
-    setSubSelection(value);
-  };
-
-  const handleChange = (event) => {
-    setSelectedValue(event.target.value);
+  const renderBoxContent = () => {
+    switch (mainSelection) {
+      case 'Set Up Template':
+        return <SetUpTemplate/>;
+      case 'Edit Template':
+        return (
+          <EditTemplate/>
+        );
+      case 'Submit for Review':
+        return <Box ></Box>;
+      default:
+        return null;
+    }
   };
 
   return (
     <MainDiv>
-      <Typography variant="h5" mb={10}>
+      <Typography variant="h5" padding={5}>
         Create Template
       </Typography>
       <Grid container item spacing={5} xs={12} padding={3}>
@@ -103,253 +87,19 @@ function CreateTemplate() {
               label="Submit for Review"
             />
           </RadioGroup>
-
+          
           <Box
             padding={2}
             mt={3}
-            sx={{
-              backgroundColor: "white",
-              borderRadius: 2,
-              boxShadow: 1,
-              height: "auto",
-            }}
+            // sx={{
+            //   backgroundColor: "white",
+            //   borderRadius: 2,
+            //   boxShadow: 1,
+            //   height: "auto",
+            // }}
           >
-            <Typography component="legend" mb={3}>
-              {mainSelection}
-            </Typography>
-            {mainSelection === "Set Up Template" && (
-              <>
-                <Typography variant="body1" mb={3} align="left">
-                  description
-                </Typography>
-                <CustomButtonGroup variant="contained">
-                  <Button
-                    onClick={() => handleSubChange("Marketing")}
-                    startIcon={<MarketingIcon />}
-                    value="Marketing"
-                  >
-                    Marketing
-                  </Button>
-                  <Button
-                    onClick={() => handleSubChange("Utility")}
-                    startIcon={<NotificationsIcon />}
-                    value="Utility"
-                  >
-                    Utility
-                  </Button>
-                  <Button
-                    onClick={() => handleSubChange("Authentication")}
-                    startIcon={<BuildIcon />}
-                    value="Authentication"
-                  >
-                    Authentication
-                  </Button>
-                </CustomButtonGroup>
-              </>
-            )}
-
-            <Box mt={2} padding={5}>
-              {mainSelection === "Set Up Template" &&
-                subSelection === "Marketing" && (
-                  <RadioGroup defaultValue="custom" onChange={handleChange}>
-                    <FormControlLabel
-                      value="custom"
-                      control={<Radio />}
-                      label={
-                        <Box>
-                          <Typography variant="body1" align="left">
-                            Custom
-                          </Typography>
-                          <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            mb={1}
-                          >
-                            Send promotions or announcement to increase
-                            awareness and engagement.
-                          </Typography>
-                        </Box>
-                      }
-                      sx={{
-                        backgroundColor:
-                          selectedValue === "custom"
-                            ? "#f0f5ff"
-                            : "transparent",
-                        borderRadius: 1,
-                        "& .MuiFormControlLabel-label": {
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "flex-start",
-                        },
-                      }}
-                    />
-                    <FormControlLabel
-                      value="catalogue"
-                      control={<Radio />}
-                      label={
-                        <Box>
-                          <Typography variant="body1" align="left">
-                            Catalogue
-                          </Typography>
-                          <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            mb={1}
-                          >
-                            Send messages about your entire catalogue or
-                            multiple products from it
-                          </Typography>
-                        </Box>
-                      }
-                      sx={{
-                        backgroundColor:
-                          selectedValue === "catalogue"
-                            ? "#f0f5ff"
-                            : "transparent",
-                        borderRadius: 1,
-                        "& .MuiFormControlLabel-label": {
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "flex-start",
-                        },
-                      }}
-                    />
-                    <FormControlLabel
-                      value="flows"
-                      control={<Radio />}
-                      label={
-                        <Box>
-                          <Typography variant="body1" align="left">
-                            Flows
-                          </Typography>
-                          <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            mb={1}
-                          >
-                            Send a form to capture interests, appointment
-                            requests, or run surveys
-                          </Typography>
-                        </Box>
-                      }
-                      sx={{
-                        backgroundColor:
-                          selectedValue === "flows" ? "#f0f5ff" : "transparent",
-                        borderRadius: 1,
-                        "& .MuiFormControlLabel-label": {
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "flex-start",
-                        },
-                      }}
-                    />
-                  </RadioGroup>
-                )}
-              {mainSelection === "Set Up Template" &&
-                subSelection === "Utility" && (
-                  <RadioGroup defaultValue="custom" onChange={handleChange}>
-                    <FormControlLabel
-                      value="custom"
-                      control={<Radio />}
-                      label={
-                        <Box>
-                          <Typography variant="body1" align="left">
-                            Custom
-                          </Typography>
-                          <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            mb={1}
-                          >
-                            Send messages about an existing order or account
-                          </Typography>
-                        </Box>
-                      }
-                      sx={{
-                        backgroundColor:
-                          selectedValue === "custom"
-                            ? "#f0f5ff"
-                            : "transparent",
-                        borderRadius: 1,
-                        "& .MuiFormControlLabel-label": {
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "flex-start",
-                        },
-                      }}
-                    />
-                    <FormControlLabel
-                      value="flows"
-                      control={<Radio />}
-                      label={
-                        <Box>
-                          <Typography variant="body1" align="left">
-                            Flows
-                          </Typography>
-                          <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            mb={1}
-                          >
-                            Sent a form to collect feedback, sent reminders or
-                            manage orders
-                          </Typography>
-                        </Box>
-                      }
-                      sx={{
-                        backgroundColor:
-                          selectedValue === "flows" ? "#f0f5ff" : "transparent",
-                        borderRadius: 1,
-                        "& .MuiFormControlLabel-label": {
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "flex-start",
-                        },
-                      }}
-                    />
-                  </RadioGroup>
-                )}
-              {mainSelection === "Set Up Template" &&
-                subSelection === "Authentication" && (
-                    <RadioGroup defaultValue="custom" onChange={handleChange}>
-                    <FormControlLabel
-                      value="custom"
-                      control={<Radio />}
-                      label={
-                        <Box>
-                          <Typography variant="body2" align="left">
-                            One -Time passcode
-                          </Typography>
-                          <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            mb={1}
-                          >
-                            Send code to verify a transaction or login
-                          </Typography>
-                        </Box>
-                      }
-                      sx={{
-                        backgroundColor:
-                          selectedValue === "custom"
-                            ? "#f0f5ff"
-                            : "transparent",
-                        borderRadius: 1,
-                        "& .MuiFormControlLabel-label": {
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "flex-start",
-                        },
-                      }}
-                    />
-                    </RadioGroup>
-                    
-                )}
-            </Box>
+            {renderBoxContent()}
           </Box>
-          {mainSelection === "Edit Template" &&(
-            <EditTemplate/>
-          )}
         </Grid>
 
         <Grid item xs={4}>
