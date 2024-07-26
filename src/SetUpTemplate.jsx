@@ -21,14 +21,19 @@ const CustomButtonGroup = styled(ButtonGroup)(({ theme }) => ({
     backgroundColor: "white",
     color: "black",
   },
-  "& .MuiButton-root:hover": {
-    backgroundColor: "lightgray",
-  },
-  "& .MuiButton-root.Mui-selected": {
-    backgroundColor: "lightgray !important",
-    color: "#fff !important",
-  },
 }));
+
+const CustomButton = styled(Button)({
+  color: 'black',
+  backgroundColor: '#fff',
+  textTransform: 'none',
+  '&:hover': {
+    backgroundColor: 'lightgray',
+  },
+  '&:active': {
+    backgroundColor: 'lightgray',
+  }
+});
 
 function SetUpTemplate() {
   const [subSelection, setSubSelection] = useState("Marketing");
@@ -56,27 +61,27 @@ function SetUpTemplate() {
         Description
       </Typography>
       <CustomButtonGroup variant="contained">
-        <Button
+        <CustomButton
           onClick={() => handleSubChange("Marketing")}
           startIcon={<MarketingIcon />}
           value="Marketing"
         >
           Marketing
-        </Button>
-        <Button
+        </CustomButton>
+        <CustomButton
           onClick={() => handleSubChange("Utility")}
           startIcon={<NotificationsIcon />}
           value="Utility"
         >
           Utility
-        </Button>
-        <Button
+        </CustomButton>
+        <CustomButton
           onClick={() => handleSubChange("Authentication")}
           startIcon={<BuildIcon />}
           value="Authentication"
         >
           Authentication
-        </Button>
+        </CustomButton>
       </CustomButtonGroup>
 
       <Box mt={2} padding={5}>

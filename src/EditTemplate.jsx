@@ -7,16 +7,29 @@ import {
   Menu,
 } from "@mui/material";
 import React, { useState } from "react";
+import { styled } from '@mui/material/styles';
 import FormHelperText from "@mui/material/FormHelperText";
 import Avatar from "@mui/material/Avatar";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import { green } from "@mui/material/colors";
 import AddIcon from "@mui/icons-material/Add";
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
-import LightbulbIcon from '@mui/icons-material/Lightbulb';
-import shadows from "@mui/material/styles/shadows";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import LightbulbIcon from "@mui/icons-material/Lightbulb";
+import IconButton from "@mui/material/IconButton";
+import FormatBoldIcon from "@mui/icons-material/FormatBold";
+import FormatItalicIcon from "@mui/icons-material/FormatItalic";
+import CodeIcon from "@mui/icons-material/Code";
+import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
+
+
+const WhiteButton = styled(Button)({
+  color: 'black',
+  backgroundColor: '#fff',
+  textTransform: 'none',
+  '&:hover': {
+    backgroundColor: '#f0f0f0',
+  },
+});
 
 const languages = [
   { value: "en", label: "English" },
@@ -30,6 +43,13 @@ const headers = [
   { value: "header1", label: "Header1" },
   { value: "header2", label: "Header2" },
   { value: "header3", label: "Header3" },
+];
+
+const buttons = [
+  { value: "button1", label: "Button1" },
+  { value: "button2", label: "Button2" },
+  { value: "button3", label: "Button3" },
+  { value: "button4", label: "Button4" },
 ];
 
 function EditTemplate() {
@@ -138,7 +158,7 @@ function EditTemplate() {
             </MenuItem>
           ))}
         </TextField>
-        <TextField
+        {/* <TextField
           label="Body"
           variant="outlined"
           fullWidth
@@ -147,8 +167,59 @@ function EditTemplate() {
           multiline
           rows={4}
           defaultValue="Hello"
-        />
-        <TextField label="Footer" fullWidth margin="normal" helperText="0/60" />
+        /> */}
+
+        <Box
+          component="form"
+          mt={2}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+          }}
+          noValidate
+          autoComplete="off"
+          fullWidth
+        >
+          <TextField
+            label="Body"
+            placeholder="Hello"
+            variant="outlined"
+            multiline
+            rows={4}
+            fullWidth
+            helperText="5/1024"
+          />
+          <Box
+            mb={2}
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <IconButton size="small">
+              <EmojiEmotionsIcon />
+            </IconButton>
+            <IconButton size="small">
+              <FormatBoldIcon />
+            </IconButton>
+            <IconButton size="small"> 
+              <FormatItalicIcon />
+            </IconButton>
+            <IconButton size="small">
+              <CodeIcon />
+            </IconButton>
+            <WhiteButton
+              variant="contained"
+              startIcon={<AddIcon fontSize="small" />}
+            >
+              Add Variable
+            </WhiteButton>
+          </Box>
+        </Box>
+
+        <TextField  label="Footer" fullWidth margin="normal" helperText="0/60" />
       </Box>
 
       <Box
@@ -161,11 +232,11 @@ function EditTemplate() {
           height: "auto",
         }}
       >
-        <Box sx={{display: "flex",alignItems: "center",}}>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
           <Typography variant="h6" align="left" mr={2}>
             Button
           </Typography>
-          <FormHelperText> -  Optional</FormHelperText>
+          <FormHelperText> - Optional</FormHelperText>
         </Box>
 
         <Typography variant="body1" align="left" mt={2}>
@@ -175,60 +246,58 @@ function EditTemplate() {
         </Typography>
 
         <Box mt={2}>
-          <Button
-            variant="outlined"
-            color="primary"
+          <WhiteButton
+            variant="contained"
             startIcon={<AddIcon />}
             endIcon={<ArrowDropDownIcon />}
             onClick={handleClick}
             sx={{
-              borderColor: 'black',
-              color: 'black',
-              '&:hover': {
-                borderColor: 'black',
-                backgroundColor: 'rgba(0, 0, 0, 0.04)'
-              },
-              alignItems:'left',
-              display: 'flex',
-              justifyContent: 'flex-start', 
-              
-              paddingRight: '24px',
+              alignItems: "left",
+              display: "flex",
+              justifyContent: "flex-start",
+
+              paddingRight: "24px",
             }}
           >
             Add Button
-          </Button>
+          </WhiteButton>
           <Menu
             anchorEl={anchorEl}
             keepMounted
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            {headers.map((option) => (
+            {buttons.map((option) => (
               <MenuItem key={option.value} onClick={handleClose}>
                 {option.label}
               </MenuItem>
             ))}
           </Menu>
         </Box>
-        <Box 
-          mt={2} 
-          fullWidth 
+        <Box
+          mt={2}
+          fullWidth
           sx={{
-              alignItems: 'center',
-              padding: 2,
-              boxShadow: 3, 
-              borderLeft: '4px solid green',
-              borderRadius: 2
+            alignItems: "center",
+            padding: 2,
+            boxShadow: 3,
+            borderLeft: "4px solid green",
+            borderRadius: 2,
           }}
         >
-          <Box sx={{display: 'flex',
-            }}
-          >
+          <Box sx={{ display: "flex" }}>
             <LightbulbIcon />
-            <Typography variant="h6"> We recommended adding the marketing opt-out button</Typography>
+            <Typography variant="h6">
+              {" "}
+              We recommended adding the marketing opt-out button
+            </Typography>
           </Box>
-          <Typography variant="body1" ml={2} align="left"> Allow customers to request to opt out of all marketing messeges. This can help reduce blocks from customers and increase your quality rating <a>learn more</a></Typography>
-
+          <Typography variant="body1" ml={2} align="left">
+            {" "}
+            Allow customers to request to opt out of all marketing messeges.
+            This can help reduce blocks from customers and increase your quality
+            rating <a href="">learn more</a>
+          </Typography>
         </Box>
       </Box>
     </>

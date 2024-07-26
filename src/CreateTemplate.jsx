@@ -30,14 +30,16 @@ const BottomBar = styled(Box)({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  width: "100%",
+  width: "90%", 
   padding: "20px",
-  backgroundColor: "rgba(255, 255, 255, 0.7)",
+  backgroundColor: "rgba(255, 255, 255, 0.8)",
   position: "fixed",
   bottom: 0,
-  left: 0,
+  left: "50%",
+  transform: "translateX(-50%)", 
   boxShadow: "0px -2px 5px rgba(0, 0, 0, 0.1)",
-  borderRadius: 2,
+  borderRadius: 3,
+  marginBottom:10,
 });
 
 function CreateTemplate() {
@@ -109,7 +111,7 @@ function CreateTemplate() {
               backgroundColor: "white",
               borderRadius: 2,
               boxShadow: 1,
-              height: 500,
+              height: 600,
             }}
           >
             <Typography variant="h6">Template Preview</Typography>
