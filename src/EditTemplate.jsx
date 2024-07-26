@@ -7,7 +7,7 @@ import {
   Menu,
 } from "@mui/material";
 import React, { useState } from "react";
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 import FormHelperText from "@mui/material/FormHelperText";
 import Avatar from "@mui/material/Avatar";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
@@ -20,14 +20,14 @@ import FormatBoldIcon from "@mui/icons-material/FormatBold";
 import FormatItalicIcon from "@mui/icons-material/FormatItalic";
 import CodeIcon from "@mui/icons-material/Code";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
-
+import VisitWebSite from "./VisitWebSite";
 
 const WhiteButton = styled(Button)({
-  color: 'black',
-  backgroundColor: '#fff',
-  textTransform: 'none',
-  '&:hover': {
-    backgroundColor: '#f0f0f0',
+  color: "black",
+  backgroundColor: "#fff",
+  textTransform: "none",
+  "&:hover": {
+    backgroundColor: "#f0f0f0",
   },
 });
 
@@ -46,15 +46,20 @@ const headers = [
 ];
 
 const buttons = [
-  { value: "button1", label: "Button1" },
-  { value: "button2", label: "Button2" },
-  { value: "button3", label: "Button3" },
-  { value: "button4", label: "Button4" },
+  { value: "1", label: "Visit wbsite", subtext: "2 buttons maximum" },
+  { value: "2", label: "Call Phone Number", subtext: "1 button maximum" },
+  { value: "3", label: "Compete flow", subtext: "1 button maximum" },
+  { value: "4", label: "Copy offer code", subtext: "1 button maximum" },
 ];
 
 function EditTemplate() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedLabel, setSelectedLabel] = useState(null);
 
+  const handleMenuItemClick = (label) => {
+    setSelectedLabel(label);
+    handleClose();
+  };
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -71,8 +76,8 @@ function EditTemplate() {
           borderRadius: 2,
           boxShadow: 1,
           height: "auto",
-          display: "flex", // Use flexbox to align items horizontally
-          alignItems: "center", // Center items vertically
+          display: "flex",
+          alignItems: "center",
         }}
       >
         <Avatar
@@ -82,7 +87,7 @@ function EditTemplate() {
           <VolumeUpIcon />
         </Avatar>
         <Box>
-          <Typography variant="h6" align="left">
+          <Typography level="h4" align="left">
             Your template name
           </Typography>
           <FormHelperText>Marketing . Custom</FormHelperText>
@@ -98,9 +103,8 @@ function EditTemplate() {
           height: "auto",
         }}
       >
-        <Typography variant="h6" align="left" mb={2}>
-          {" "}
-          Template name and language{" "}
+        <Typography level="title-lg" align="left" mb={2}>
+          Template name and language
         </Typography>
         <Box display="flex" justifyContent="space-between" mb={2}>
           <TextField
@@ -137,10 +141,10 @@ function EditTemplate() {
           height: "auto",
         }}
       >
-        <Typography variant="h6" align="left" mb={2}>
+        <Typography level="h4" align="left" mb={2}>
           Content
         </Typography>
-        <Typography variant="body1" align="left" mb={3}>
+        <Typography level="body-sm" align="left" mb={3}>
           Fill in the header, body and footer sections of your template.
         </Typography>
         <TextField
@@ -204,7 +208,7 @@ function EditTemplate() {
             <IconButton size="small">
               <FormatBoldIcon />
             </IconButton>
-            <IconButton size="small"> 
+            <IconButton size="small">
               <FormatItalicIcon />
             </IconButton>
             <IconButton size="small">
@@ -219,7 +223,7 @@ function EditTemplate() {
           </Box>
         </Box>
 
-        <TextField  label="Footer" fullWidth margin="normal" helperText="0/60" />
+        <TextField label="Footer" fullWidth margin="normal" helperText="0/60" />
       </Box>
 
       <Box
@@ -233,13 +237,13 @@ function EditTemplate() {
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Typography variant="h6" align="left" mr={2}>
+          <Typography level="h4" align="left" mr={2}>
             Button
           </Typography>
           <FormHelperText> - Optional</FormHelperText>
         </Box>
 
-        <Typography variant="body1" align="left" mt={2}>
+        <Typography level="body-sm" align="left" mt={2}>
           Create button that let customers to your messages or take action. You
           can add up to ten buttons. If you add more than three buttons, they
           will appear in a list
@@ -267,12 +271,34 @@ function EditTemplate() {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
+            <Box
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "5px 12px",
+              }}
+            >
+              <Typography variant="subtitle1">
+                Call-to-action Buttons
+              </Typography>
+            </Box>
             {buttons.map((option) => (
-              <MenuItem key={option.value} onClick={handleClose}>
-                {option.label}
+              <MenuItem key={option.value} onClick={() => handleMenuItemClick(option.label)}>
+                <Box>
+                  <Typography variant="body1">{option.label}</Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    {option.subtext}
+                  </Typography>
+                </Box>
               </MenuItem>
             ))}
           </Menu>
+          {selectedLabel && (
+            <Box mt={2}>
+              <VisitWebSite/>
+            </Box>
+          )}
         </Box>
         <Box
           mt={2}
@@ -287,12 +313,12 @@ function EditTemplate() {
         >
           <Box sx={{ display: "flex" }}>
             <LightbulbIcon />
-            <Typography variant="h6">
+            <Typography level="body-md">
               {" "}
               We recommended adding the marketing opt-out button
             </Typography>
           </Box>
-          <Typography variant="body1" ml={2} align="left">
+          <Typography level="body-sm" ml={2} align="left">
             {" "}
             Allow customers to request to opt out of all marketing messeges.
             This can help reduce blocks from customers and increase your quality

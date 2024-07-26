@@ -57,10 +57,10 @@ function SetUpTemplate() {
         height: "auto",
       }}
     >
-      <Typography variant="body1" mb={3} align="left">
-        Description
+      <Typography level="body-ms" mb={3} align="left">
+        Choose the categoty ....
       </Typography>
-      <CustomButtonGroup variant="contained">
+      <CustomButtonGroup variant="contained" >
         <CustomButton
           onClick={() => handleSubChange("Marketing")}
           startIcon={<MarketingIcon />}
@@ -92,10 +92,10 @@ function SetUpTemplate() {
               control={<Radio />}
               label={
                 <Box>
-                  <Typography variant="body1" align="left">
+                  <Typography level="body-sm" align="left">
                     Custom
                   </Typography>
-                  <Typography variant="body2" color="textSecondary" mb={1}>
+                  <Typography level="body-xs" color="textSecondary" mb={1}>
                     Send promotions or announcements to increase awareness and
                     engagement.
                   </Typography>
@@ -117,10 +117,10 @@ function SetUpTemplate() {
               control={<Radio />}
               label={
                 <Box>
-                  <Typography variant="body1" align="left">
+                  <Typography level="body-sm" align="left">
                     Catalogue
                   </Typography>
-                  <Typography variant="body2" color="textSecondary" mb={1}>
+                  <Typography level="body-xs" color="textSecondary" mb={1}>
                     Send messages about your entire catalogue or multiple
                     products from it.
                   </Typography>
@@ -142,10 +142,10 @@ function SetUpTemplate() {
               control={<Radio />}
               label={
                 <Box>
-                  <Typography variant="body1" align="left">
+                  <Typography level="body-sm" align="left">
                     Flows
                   </Typography>
-                  <Typography variant="body2" color="textSecondary" mb={1}>
+                  <Typography level="body-xs" color="textSecondary" mb={1}>
                     Send a form to capture interests, appointment requests, or
                     run surveys.
                   </Typography>
@@ -171,11 +171,11 @@ function SetUpTemplate() {
                       control={<Radio />}
                       label={
                         <Box>
-                          <Typography variant="body1" align="left">
+                          <Typography level="body-sm" align="left">
                             Custom
                           </Typography>
                           <Typography
-                            variant="body2"
+                            level="body-xs"
                             color="textSecondary"
                             mb={1}
                           >
@@ -201,11 +201,11 @@ function SetUpTemplate() {
                       control={<Radio />}
                       label={
                         <Box>
-                          <Typography variant="body1" align="left">
+                          <Typography level="body-sm" align="left">
                             Flows
                           </Typography>
                           <Typography
-                            variant="body2"
+                            level="body-xs"
                             color="textSecondary"
                             mb={1}
                           >
@@ -234,11 +234,11 @@ function SetUpTemplate() {
                       control={<Radio />}
                       label={
                         <Box>
-                          <Typography variant="body2" align="left">
+                          <Typography level="body-sm" align="left">
                             One -Time passcode
                           </Typography>
                           <Typography
-                            variant="body2"
+                            level="body-xs"
                             color="textSecondary"
                             mb={1}
                           >

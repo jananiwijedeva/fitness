@@ -67,7 +67,7 @@ function CreateTemplate() {
 
   return (
     <MainDiv>
-      <Typography variant="h5" padding={5}>
+      <Typography level="h2" padding={5}>
         Create Template
       </Typography>
       <Grid container item spacing={5} xs={12} padding={3}>
@@ -93,12 +93,6 @@ function CreateTemplate() {
           <Box
             padding={2}
             mt={3}
-            // sx={{
-            //   backgroundColor: "white",
-            //   borderRadius: 2,
-            //   boxShadow: 1,
-            //   height: "auto",
-            // }}
           >
             {renderBoxContent()}
           </Box>
@@ -114,7 +108,7 @@ function CreateTemplate() {
               height: 600,
             }}
           >
-            <Typography variant="h6">Template Preview</Typography>
+            <Typography level="title-lg">Template Preview</Typography>
           </Box>
         </Grid>
       </Grid>
