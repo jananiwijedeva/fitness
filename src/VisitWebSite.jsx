@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import Alert from "@mui/joy/Alert";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import Checkbox from '@mui/joy/Checkbox';
+import Checkbox from "@mui/joy/Checkbox";
 import React from "react";
 
 const action = [
@@ -30,19 +30,13 @@ function VisitWebSite() {
         <Typography align="left">Call to action </Typography>
         <FormHelperText>- optional</FormHelperText>
       </Box>
-      <Box
-        mb={2}
-        p={2}
-        sx={{ backgroundColor: "lightgray" }}
-        borderRadius={2}
-      >
+      <Box mb={2} p={2} sx={{ backgroundColor: "lightgray" }} borderRadius={2}>
         <Box
-          // fullWidth
-          // display="flex"
-          // p={2}
-          // justifyContent="space-between"
-          sx={{ alignItems: "center" }}
-          // borderRadius={2}
+          sx={{
+            alignItems: "center",
+            flexDirection: "row",
+            gap: 2,
+          }}
         >
           <Alert
             variant="outlined"
@@ -58,7 +52,7 @@ function VisitWebSite() {
               label="Type of action"
               value="1"
               variant="outlined"
-              style={{ width: "200px", textAlign: "left" }}
+              style={{ width: "200px", textAlign: "left"}}
             >
               {action.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
@@ -70,9 +64,9 @@ function VisitWebSite() {
               label="Button Text"
               variant="outlined"
               fullWidth
-              inputProps={{ maxLength: 512 }}
-              helperText="0/512"
-              sx={{ width: "670px" }}
+              inputProps={{ maxLength: 25 }}
+              helperText="13/25"
+              sx={{ width: "670px", marginTop:'22px' }}
             />
             <TextField
               select
@@ -91,24 +85,29 @@ function VisitWebSite() {
               label="Website URL"
               variant="outlined"
               fullWidth
-              inputProps={{ maxLength: 512 }}
-              helperText="0/512"
-              sx={{ width: "670px" }}
+              inputProps={{ maxLength: 2000 }}
+              helperText="0/2000"
+              sx={{ width: "670px", marginTop:'22px' }}
             />
           </Alert>
         </Box>
       </Box>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}>
-      
-      <Alert
-        variant="outlined"
-        color="neutral"
-        startDecorator={< Checkbox/>}
-        sx={{ backgroundColor: "lightgray" }}
+      <Box
+        sx={{ display: "flex", flexDirection: "column", gap: 2, width: "100%" }}
       >
-        <Typography align="left"> You derect meta to use link tracking to report website clicks. When this box is unclicked, you will not see insights for website clicks </Typography>
-      </Alert>
-    </Box>
+        <Alert
+          variant="outlined"
+          color="neutral"
+          startDecorator={<Checkbox />}
+          sx={{ backgroundColor: "lightgray" }}
+        >
+          <Typography align="left">
+            {" "}
+            You derect meta to use link tracking to report website clicks. When
+            this box is unclicked, you will not see insights for website clicks{" "}
+          </Typography>
+        </Alert>
+      </Box>
     </Box>
   );
 }

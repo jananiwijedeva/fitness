@@ -21,6 +21,14 @@ import FormatItalicIcon from "@mui/icons-material/FormatItalic";
 import CodeIcon from "@mui/icons-material/Code";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import VisitWebSite from "./VisitWebSite";
+import BlockIcon from '@mui/icons-material/Block';
+import TextFieldsIcon from '@mui/icons-material/TextFields';
+import ImageIcon from '@mui/icons-material/Image';
+import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
+import DescriptionIcon from '@mui/icons-material/Description';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+
+
 
 const WhiteButton = styled(Button)({
   color: "black",
@@ -39,12 +47,13 @@ const languages = [
 ];
 
 const headers = [
-  { value: "none", label: "None" },
-  { value: "header1", label: "Header1" },
-  { value: "header2", label: "Header2" },
-  { value: "header3", label: "Header3" },
+  { value: 'none', label: 'None'},
+  { value: 'header1', label: 'Text', icon: <TextFieldsIcon /> },
+  { value: 'header2', label: 'Image', icon: <ImageIcon /> },
+  { value: 'header3', label: 'Video', icon: <VideoLibraryIcon /> },
+  { value: 'header4', label: 'Document', icon: <DescriptionIcon /> },
+  { value: 'header5', label: 'Location', icon: <LocationOnIcon /> },
 ];
-
 const buttons = [
   { value: "1", label: "Visit wbsite", subtext: "2 buttons maximum" },
   { value: "2", label: "Call Phone Number", subtext: "1 button maximum" },
@@ -55,6 +64,8 @@ const buttons = [
 function EditTemplate() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedLabel, setSelectedLabel] = useState(null);
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
+  const [selectedHeader, setSelectedHeader] = useState("none");
 
   const handleMenuItemClick = (label) => {
     setSelectedLabel(label);
@@ -66,6 +77,10 @@ function EditTemplate() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLanguageChange = (event) => {
+    setSelectedLanguage(event.target.value);
   };
   return (
     <>
@@ -118,7 +133,8 @@ function EditTemplate() {
           <TextField
             select
             label="Select language"
-            value="en"
+            value={selectedLanguage}
+            onChange={handleLanguageChange}
             variant="outlined"
             style={{ width: "200px", textAlign: "left" }}
           >
@@ -148,30 +164,22 @@ function EditTemplate() {
           Fill in the header, body and footer sections of your template.
         </Typography>
         <TextField
-          select
-          label="Header"
-          value="none"
-          variant="outlined"
-          helperText="Optional"
-          fullWidth
-          style={{ textAlign: "left" }}
-        >
-          {headers.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        {/* <TextField
-          label="Body"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          helperText="Characters: 5/1024"
-          multiline
-          rows={4}
-          defaultValue="Hello"
-        /> */}
+      select
+      label="Header"
+      value={selectedHeader}
+      variant="outlined"
+      helperText="Optional"
+      fullWidth
+      style={{ textAlign: "left" }}
+      onChange={(e) => setSelectedHeader(e.target.value)}
+    >
+      {headers.map((option) => (
+        <MenuItem key={option.value} value={option.value} style={{ display: 'flex', alignItems: 'center' }}>
+          {option.icon}
+          <span style={{ marginLeft: '8px' }}>{option.label}</span>
+        </MenuItem>
+      ))}
+    </TextField>
 
         <Box
           component="form"
@@ -266,35 +274,35 @@ function EditTemplate() {
             Add Button
           </WhiteButton>
           <Menu
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <Box
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "5px 12px",
-              }}
-            >
-              <Typography variant="subtitle1">
-                Call-to-action Buttons
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <Box
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "5px 12px",
+          }}
+        >
+          <Typography variant="subtitle1">
+            Call-to-action Buttons
+          </Typography>
+        </Box>
+        {buttons.map((option) => (
+          <MenuItem key={option.value} onClick={() => handleMenuItemClick(option.label)}>
+            <Box>
+              <Typography variant="body1">{option.label}</Typography>
+              <Typography variant="body2" color="textSecondary">
+                {option.subtext}
               </Typography>
             </Box>
-            {buttons.map((option) => (
-              <MenuItem key={option.value} onClick={() => handleMenuItemClick(option.label)}>
-                <Box>
-                  <Typography variant="body1">{option.label}</Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    {option.subtext}
-                  </Typography>
-                </Box>
-              </MenuItem>
-            ))}
-          </Menu>
-          {selectedLabel && (
+          </MenuItem>
+        ))}
+      </Menu>
+          {selectedLabel==="Visit wbsite" && (
             <Box mt={2}>
               <VisitWebSite/>
             </Box>
