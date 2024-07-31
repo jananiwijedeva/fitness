@@ -5,6 +5,7 @@ import {
   MenuItem,
   Button,
   Menu,
+  Select
 } from "@mui/material";
 import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
@@ -21,14 +22,13 @@ import FormatItalicIcon from "@mui/icons-material/FormatItalic";
 import CodeIcon from "@mui/icons-material/Code";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import VisitWebSite from "./VisitWebSite";
-import BlockIcon from '@mui/icons-material/Block';
-import TextFieldsIcon from '@mui/icons-material/TextFields';
-import ImageIcon from '@mui/icons-material/Image';
-import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
-import DescriptionIcon from '@mui/icons-material/Description';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-
-
+import CallPhoneNo from "./CallPhoneNo";
+import CopyOfferCode from "./CopyOfferCode";
+import TextFieldsIcon from "@mui/icons-material/TextFields";
+import ImageIcon from "@mui/icons-material/Image";
+import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
+import DescriptionIcon from "@mui/icons-material/Description";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 const WhiteButton = styled(Button)({
   color: "black",
@@ -47,12 +47,12 @@ const languages = [
 ];
 
 const headers = [
-  { value: 'none', label: 'None'},
-  { value: 'header1', label: 'Text', icon: <TextFieldsIcon /> },
-  { value: 'header2', label: 'Image', icon: <ImageIcon /> },
-  { value: 'header3', label: 'Video', icon: <VideoLibraryIcon /> },
-  { value: 'header4', label: 'Document', icon: <DescriptionIcon /> },
-  { value: 'header5', label: 'Location', icon: <LocationOnIcon /> },
+  { value: "none", label: "None" },
+  { value: "header1", label: "Text", icon: <TextFieldsIcon /> },
+  { value: "header2", label: "Image", icon: <ImageIcon /> },
+  { value: "header3", label: "Video", icon: <VideoLibraryIcon /> },
+  { value: "header4", label: "Document", icon: <DescriptionIcon /> },
+  { value: "header5", label: "Location", icon: <LocationOnIcon /> },
 ];
 const buttons = [
   { value: "1", label: "Visit wbsite", subtext: "2 buttons maximum" },
@@ -66,6 +66,10 @@ function EditTemplate() {
   const [selectedLabel, setSelectedLabel] = useState(null);
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [selectedHeader, setSelectedHeader] = useState("none");
+
+  const handleChange = (event) => {
+    setSelectedHeader(event.target.value);
+  };
 
   const handleMenuItemClick = (label) => {
     setSelectedLabel(label);
@@ -81,6 +85,89 @@ function EditTemplate() {
 
   const handleLanguageChange = (event) => {
     setSelectedLanguage(event.target.value);
+  };
+
+  
+  const renderContent = () => {
+    switch (selectedHeader) {
+      case "header1":
+        return (
+          <Box>
+            <TextField label="Enter Text in English" fullWidth margin="normal" helperText="0/60" />
+            <WhiteButton
+              variant="contained"
+              startIcon={<AddIcon fontSize="small" />}
+              sx={{
+                display: 'flex',
+                alignItems:'right'
+              }}
+            >
+              Add Variable
+            </WhiteButton>
+          </Box>
+        )
+      case "header2":
+        return (
+          <Box
+          padding={1}
+          sx={{ backgroundColor: "lightgray", borderRadius:'3px'}}>
+            <Typography variant="h6" align="left">Sample for header content</Typography>
+            <Typography variant="body1" align="left">To help us review your content, provide example of the variable or mrdia in the header. Do not indude any customer information. Cloud API hosted by Meta reviews templetes and variable parameters to protect the ssecurity and integrity of our services</Typography>
+            <Box
+              sx={{ display: 'flex', alignItems: 'center' }}
+            >
+            <Typography mr={1}>Image: </Typography>
+            <WhiteButton variant="contained"
+              startIcon={<ImageIcon fontSize="small" />}
+            >Choose JPG or PNG file
+            </WhiteButton>
+            </Box>
+            
+          </Box>
+        )
+      case "header3":
+        return (
+          <Box
+          padding={1}
+          sx={{ backgroundColor: "lightgray", borderRadius:'3px'}}>
+            <Typography variant="h6" align="left">Sample for header content</Typography>
+            <Typography variant="body1" align="left">To help us review your content, provide example of the variable or mrdia in the header. Do not indude any customer information. Cloud API hosted by Meta reviews templetes and variable parameters to protect the ssecurity and integrity of our services</Typography>
+            <Box
+              sx={{ display: 'flex', alignItems: 'center' }}
+            >
+            <Typography mr={1}>Video: </Typography>
+            <WhiteButton variant="contained"
+              startIcon={<ImageIcon fontSize="small" />}
+            >Choose MP4 file
+            </WhiteButton>
+            </Box>
+            
+          </Box>
+        )
+      case "header4":
+        return (
+          <Box
+          padding={1}
+          sx={{ backgroundColor: "lightgray", borderRadius:'3px'}}>
+            <Typography variant="h6" align="left">Sample for header content</Typography>
+            <Typography variant="body1" align="left">To help us review your content, provide example of the variable or mrdia in the header. Do not indude any customer information. Cloud API hosted by Meta reviews templetes and variable parameters to protect the ssecurity and integrity of our services</Typography>
+            <Box
+              sx={{ display: 'flex', alignItems: 'center' }}
+            >
+            <Typography mr={1}>Document: </Typography>
+            <WhiteButton variant="contained"
+              startIcon={<ImageIcon fontSize="small" />}
+            >Choose PDF file
+            </WhiteButton>
+            </Box>
+            
+          </Box>
+        )
+      case "header5":
+        return <Box></Box>;
+      default:
+        return <Box></Box>;
+    }
   };
   return (
     <>
@@ -163,27 +250,27 @@ function EditTemplate() {
         <Typography level="body-sm" align="left" mb={3}>
           Fill in the header, body and footer sections of your template.
         </Typography>
-        <TextField
-      select
-      label="Header"
-      value={selectedHeader}
-      variant="outlined"
-      helperText="Optional"
-      fullWidth
-      style={{ textAlign: "left" }}
-      onChange={(e) => setSelectedHeader(e.target.value)}
-    >
-      {headers.map((option) => (
-        <MenuItem key={option.value} value={option.value} style={{ display: 'flex', alignItems: 'center' }}>
-          {option.icon}
-          <span style={{ marginLeft: '8px' }}>{option.label}</span>
-        </MenuItem>
-      ))}
-    </TextField>
+        <Select
+          labelId="header-select-label"
+          value={selectedHeader}
+          label="Header"
+          onChange={handleChange}
+          fullWidth
+          style={{ textAlign: "left" }}
+        >
+          {headers.map((header) => (
+            <MenuItem key={header.value} value={header.value}>
+              {header.icon && <span>{header.icon}</span>} {header.label}
+            </MenuItem>
+          ))}
+        </Select>
+        <Box mt={2}>
+        {renderContent()}
+      </Box>
 
         <Box
           component="form"
-          mt={2}
+          mt={3}
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -274,37 +361,50 @@ function EditTemplate() {
             Add Button
           </WhiteButton>
           <Menu
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <Box
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "5px 12px",
-          }}
-        >
-          <Typography variant="subtitle1">
-            Call-to-action Buttons
-          </Typography>
-        </Box>
-        {buttons.map((option) => (
-          <MenuItem key={option.value} onClick={() => handleMenuItemClick(option.label)}>
-            <Box>
-              <Typography variant="body1">{option.label}</Typography>
-              <Typography variant="body2" color="textSecondary">
-                {option.subtext}
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <Box
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "5px 12px",
+              }}
+            >
+              <Typography variant="subtitle1">
+                Call-to-action Buttons
               </Typography>
             </Box>
-          </MenuItem>
-        ))}
-      </Menu>
-          {selectedLabel==="Visit wbsite" && (
+            {buttons.map((option) => (
+              <MenuItem
+                key={option.value}
+                onClick={() => handleMenuItemClick(option.label)}
+              >
+                <Box>
+                  <Typography variant="body1">{option.label}</Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    {option.subtext}
+                  </Typography>
+                </Box>
+              </MenuItem>
+            ))}
+          </Menu>
+          {selectedLabel === "Visit wbsite" && (
             <Box mt={2}>
-              <VisitWebSite/>
+              <VisitWebSite />
+            </Box>
+          )}
+          {selectedLabel === "Call Phone Number" && (
+            <Box mt={2}>
+              <CallPhoneNo />
+            </Box>
+          )}
+          {selectedLabel === "Copy offer code" && (
+            <Box mt={2}>
+              <CopyOfferCode />
             </Box>
           )}
         </Box>
@@ -327,7 +427,6 @@ function EditTemplate() {
             </Typography>
           </Box>
           <Typography level="body-sm" ml={2} align="left">
-            {" "}
             Allow customers to request to opt out of all marketing messeges.
             This can help reduce blocks from customers and increase your quality
             rating <a href="">learn more</a>
