@@ -23,7 +23,6 @@ import ImageIcon from "@mui/icons-material/Image";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import DescriptionIcon from "@mui/icons-material/Description";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import AddButton from "./AddVariable";
 import AddVariable from "./AddVariable";
 
 const WhiteButton = styled(Button)({
@@ -62,9 +61,6 @@ function EditTemplate() {
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [selectedHeader, setSelectedHeader] = useState("none");
   const [contentList, setContentList] = useState([]);
-  const [text, setText] = useState('');
-  // const [selectionStart, setSelectionStart] = useState(null);
-  // const [selectionEnd, setSelectionEnd] = useState(null);
 
   const handleChange = (event) => {
     setSelectedHeader(event.target.value);
@@ -76,10 +72,6 @@ function EditTemplate() {
     handleClose();
   };
 
-  const handleRemoveContent = (index) => {
-    const newContentList = contentList.filter((_, i) => i !== index);
-    setContentList(newContentList);
-  };
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -223,7 +215,7 @@ function EditTemplate() {
           <VolumeUpIcon />
         </Avatar>
         <Box>
-          <Typography level="h4" align="left">
+          <Typography variant="h6" align="left">
             Your template name
           </Typography>
           <FormHelperText>Marketing . Custom</FormHelperText>
@@ -239,7 +231,7 @@ function EditTemplate() {
           height: "auto",
         }}
       >
-        <Typography level="title-lg" align="left" mb={2}>
+        <Typography variant="h6" align="left" mb={2}>
           Template name and language
         </Typography>
         <Box display="flex" justifyContent="space-between" mb={2}>
@@ -278,7 +270,7 @@ function EditTemplate() {
           height: "auto",
         }}
       >
-        <Typography level="h4" align="left" mb={2}>
+        <Typography variant="h6" align="left" mb={2}>
           Content
         </Typography>
         <Typography level="body-sm" align="left" mb={3}>
@@ -374,7 +366,7 @@ function EditTemplate() {
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Typography level="h4" align="left" mr={2}>
+          <Typography variant="h6" align="left" mr={2}>
             Button
           </Typography>
           <FormHelperText> - Optional</FormHelperText>
@@ -387,7 +379,7 @@ function EditTemplate() {
         </Typography>
 
         <Box mt={2}>
-          <Button
+          <WhiteButton
             variant="contained"
             startIcon={<AddIcon />}
             endIcon={<ArrowDropDownIcon />}
@@ -400,7 +392,7 @@ function EditTemplate() {
             }}
           >
             Add Button
-          </Button>
+          </WhiteButton>
           <Menu
             anchorEl={anchorEl}
             keepMounted
@@ -446,7 +438,7 @@ function EditTemplate() {
             </Typography>
           </Box>
         </Box>
-        <Box mb={1} sx={{ display: "flex", alignItems: "center" }}>
+        <Box mb={1} mt={2} sx={{ display: "flex", alignItems: "center" }}>
           <Typography align="left">Call to action </Typography>
           <FormHelperText>- optional</FormHelperText>
         </Box>
@@ -463,7 +455,6 @@ function EditTemplate() {
                 {content.label === "Visit website" && <VisitWebSite />}
                 {content.label === "Call Phone Number" && <CallPhoneNo />}
                 {content.label === "Copy offer code" && <CopyOfferCode />}
-                <Button onClick={() => handleRemoveContent(index)}>Remove</Button>
               </Box>
             ))}
           </Box>

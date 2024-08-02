@@ -12,6 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import BuildIcon from "@mui/icons-material/Build";
+import AddButton from "./AddButton";
 
 const CustomButtonGroup = styled(ButtonGroup)(({ theme }) => ({
   width: "100%",
@@ -57,7 +58,7 @@ function SetUpTemplate() {
       }}
     >
       <Typography level="body-ms" mb={3} align="left">
-        Choose the categoty ....
+        Choose the categoty that best describes your message template. Then, select the type of messsage that you want to send. <a href=""> Learn more about catrgories </a>
       </Typography>
       <CustomButtonGroup variant="contained" >
         <CustomButton
@@ -259,6 +260,7 @@ function SetUpTemplate() {
                       }}
                     />
                     </RadioGroup>
+                    
                     
                 )}
             </Box>
