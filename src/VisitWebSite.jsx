@@ -26,10 +26,7 @@ const type = [
 function VisitWebSite() {
   return (
     <Box>
-      <Box mb={1} sx={{ display: "flex", alignItems: "center" }}>
-        <Typography align="left">Call to action </Typography>
-        <FormHelperText>- optional</FormHelperText>
-      </Box>
+
       <Box mb={2} p={2} sx={{ backgroundColor: "lightgray" }} borderRadius={2}>
         <Box
           sx={{

@@ -20,18 +20,6 @@ import {
   function CopyOfferCode() {
     return (
       <Box>
-        <Box mb={1} sx={{ display: "flex", alignItems: "center" }}>
-          <Typography align="left">Call to action </Typography>
-          <FormHelperText>- optional</FormHelperText>
-        </Box>
-        <Box mb={2} p={2} sx={{ backgroundColor: "lightgray" }} borderRadius={2}>
-          <Box
-            sx={{
-              alignItems: "center",
-              flexDirection: "row",
-              gap: 2, 
-            }}
-          >
             <Alert
               variant="outlined"
               color="neutral"
@@ -71,8 +59,6 @@ import {
               />
             </Alert>
           </Box>
-        </Box>
-        </Box>
 
     );
 }

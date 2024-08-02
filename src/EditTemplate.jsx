@@ -5,7 +5,6 @@ import {
   MenuItem,
   Button,
   Menu,
-  Select
 } from "@mui/material";
 import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
@@ -16,11 +15,6 @@ import { green } from "@mui/material/colors";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
-import IconButton from "@mui/material/IconButton";
-import FormatBoldIcon from "@mui/icons-material/FormatBold";
-import FormatItalicIcon from "@mui/icons-material/FormatItalic";
-import CodeIcon from "@mui/icons-material/Code";
-import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import VisitWebSite from "./VisitWebSite";
 import CallPhoneNo from "./CallPhoneNo";
 import CopyOfferCode from "./CopyOfferCode";
@@ -29,6 +23,8 @@ import ImageIcon from "@mui/icons-material/Image";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import DescriptionIcon from "@mui/icons-material/Description";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import AddButton from "./AddVariable";
+import AddVariable from "./AddVariable";
 
 const WhiteButton = styled(Button)({
   color: "black",
@@ -55,10 +51,9 @@ const headers = [
   { value: "header5", label: "Location", icon: <LocationOnIcon /> },
 ];
 const buttons = [
-  { value: "1", label: "Visit wbsite", subtext: "2 buttons maximum" },
+  { value: "1", label: "Visit website", subtext: "2 buttons maximum" },
   { value: "2", label: "Call Phone Number", subtext: "1 button maximum" },
-  { value: "3", label: "Compete flow", subtext: "1 button maximum" },
-  { value: "4", label: "Copy offer code", subtext: "1 button maximum" },
+  { value: "3", label: "Copy offer code", subtext: "1 button maximum" },
 ];
 
 function EditTemplate() {
@@ -66,6 +61,10 @@ function EditTemplate() {
   const [selectedLabel, setSelectedLabel] = useState(null);
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [selectedHeader, setSelectedHeader] = useState("none");
+  const [contentList, setContentList] = useState([]);
+  const [text, setText] = useState('');
+  // const [selectionStart, setSelectionStart] = useState(null);
+  // const [selectionEnd, setSelectionEnd] = useState(null);
 
   const handleChange = (event) => {
     setSelectedHeader(event.target.value);
@@ -73,7 +72,13 @@ function EditTemplate() {
 
   const handleMenuItemClick = (label) => {
     setSelectedLabel(label);
+    setContentList([...contentList, { label }]);
     handleClose();
+  };
+
+  const handleRemoveContent = (index) => {
+    const newContentList = contentList.filter((_, i) => i !== index);
+    setContentList(newContentList);
   };
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -87,84 +92,113 @@ function EditTemplate() {
     setSelectedLanguage(event.target.value);
   };
 
+  // const handleSelectionChange = (e) => {
+  //   setSelectionStart(e.target.selectionStart);
+  //   setSelectionEnd(e.target.selectionEnd);
+  // };
   
   const renderContent = () => {
     switch (selectedHeader) {
       case "header1":
         return (
           <Box>
-            <TextField label="Enter Text in English" fullWidth margin="normal" helperText="0/60" />
+            <TextField
+              label="Enter Text in English"
+              fullWidth
+              margin="normal"
+              inputProps={{ maxLength: 60 }}
+              helperText="0/60"
+            />
             <WhiteButton
               variant="contained"
               startIcon={<AddIcon fontSize="small" />}
               sx={{
-                display: 'flex',
-                alignItems:'right'
+                display: "flex",
+                alignItems: "right",
               }}
             >
               Add Variable
             </WhiteButton>
           </Box>
-        )
+        );
       case "header2":
         return (
           <Box
-          padding={1}
-          sx={{ backgroundColor: "lightgray", borderRadius:'3px'}}>
-            <Typography variant="h6" align="left">Sample for header content</Typography>
-            <Typography variant="body1" align="left">To help us review your content, provide example of the variable or mrdia in the header. Do not indude any customer information. Cloud API hosted by Meta reviews templetes and variable parameters to protect the ssecurity and integrity of our services</Typography>
-            <Box
-              sx={{ display: 'flex', alignItems: 'center' }}
-            >
-            <Typography mr={1}>Image: </Typography>
-            <WhiteButton variant="contained"
-              startIcon={<ImageIcon fontSize="small" />}
-            >Choose JPG or PNG file
-            </WhiteButton>
+            padding={1}
+            sx={{ backgroundColor: "lightgray", borderRadius: "3px" }}
+          >
+            <Typography variant="h6" align="left">
+              Sample for header content
+            </Typography>
+            <Typography variant="body1" align="left">
+              To help us review your content, provide example of the variable or
+              mrdia in the header. Do not indude any customer information. Cloud
+              API hosted by Meta reviews templetes and variable parameters to
+              protect the ssecurity and integrity of our services
+            </Typography>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Typography mr={1}>Image: </Typography>
+              <WhiteButton
+                variant="contained"
+                startIcon={<ImageIcon fontSize="small" />}
+              >
+                Choose JPG or PNG file
+              </WhiteButton>
             </Box>
-            
           </Box>
-        )
+        );
       case "header3":
         return (
           <Box
-          padding={1}
-          sx={{ backgroundColor: "lightgray", borderRadius:'3px'}}>
-            <Typography variant="h6" align="left">Sample for header content</Typography>
-            <Typography variant="body1" align="left">To help us review your content, provide example of the variable or mrdia in the header. Do not indude any customer information. Cloud API hosted by Meta reviews templetes and variable parameters to protect the ssecurity and integrity of our services</Typography>
-            <Box
-              sx={{ display: 'flex', alignItems: 'center' }}
-            >
-            <Typography mr={1}>Video: </Typography>
-            <WhiteButton variant="contained"
-              startIcon={<ImageIcon fontSize="small" />}
-            >Choose MP4 file
-            </WhiteButton>
+            padding={1}
+            sx={{ backgroundColor: "lightgray", borderRadius: "3px" }}
+          >
+            <Typography variant="h6" align="left">
+              Sample for header content
+            </Typography>
+            <Typography variant="body1" align="left">
+              To help us review your content, provide example of the variable or
+              mrdia in the header. Do not indude any customer information. Cloud
+              API hosted by Meta reviews templetes and variable parameters to
+              protect the ssecurity and integrity of our services
+            </Typography>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Typography mr={1}>Video: </Typography>
+              <WhiteButton
+                variant="contained"
+                startIcon={<ImageIcon fontSize="small" />}
+              >
+                Choose MP4 file
+              </WhiteButton>
             </Box>
-            
           </Box>
-        )
+        );
       case "header4":
         return (
           <Box
-          padding={1}
-          sx={{ backgroundColor: "lightgray", borderRadius:'3px'}}>
-            <Typography variant="h6" align="left">Sample for header content</Typography>
-            <Typography variant="body1" align="left">To help us review your content, provide example of the variable or mrdia in the header. Do not indude any customer information. Cloud API hosted by Meta reviews templetes and variable parameters to protect the ssecurity and integrity of our services</Typography>
-            <Box
-              sx={{ display: 'flex', alignItems: 'center' }}
-            >
-            <Typography mr={1}>Document: </Typography>
-            <WhiteButton variant="contained"
-              startIcon={<ImageIcon fontSize="small" />}
-            >Choose PDF file
-            </WhiteButton>
+            padding={1}
+            sx={{ backgroundColor: "lightgray", borderRadius: "3px" }}
+          >
+            <Typography variant="h6" align="left">
+              Sample for header content
+            </Typography>
+            <Typography variant="body1" align="left">
+              To help us review your content, provide example of the variable or
+              mrdia in the header. Do not indude any customer information. Cloud
+              API hosted by Meta reviews templetes and variable parameters to
+              protect the ssecurity and integrity of our services
+            </Typography>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Typography mr={1}>Document: </Typography>
+              <WhiteButton
+                variant="contained"
+                startIcon={<ImageIcon fontSize="small" />}
+              >
+                Choose PDF file
+              </WhiteButton>
             </Box>
-            
           </Box>
-        )
-      case "header5":
-        return <Box></Box>;
+        );
       default:
         return <Box></Box>;
     }
@@ -250,12 +284,13 @@ function EditTemplate() {
         <Typography level="body-sm" align="left" mb={3}>
           Fill in the header, body and footer sections of your template.
         </Typography>
-        <Select
-          labelId="header-select-label"
-          value={selectedHeader}
+        <TextField
+          select
           label="Header"
+          value={selectedHeader}
           onChange={handleChange}
           fullWidth
+          variant="outlined"
           style={{ textAlign: "left" }}
         >
           {headers.map((header) => (
@@ -263,12 +298,10 @@ function EditTemplate() {
               {header.icon && <span>{header.icon}</span>} {header.label}
             </MenuItem>
           ))}
-        </Select>
-        <Box mt={2}>
-        {renderContent()}
-      </Box>
+        </TextField>
+        <Box mt={2}>{renderContent()}</Box>
 
-        <Box
+        {/* <Box
           component="form"
           mt={3}
           sx={{
@@ -284,6 +317,7 @@ function EditTemplate() {
             label="Body"
             placeholder="Hello"
             variant="outlined"
+            inputProps={{ maxLength: 1024 }}
             multiline
             rows={4}
             fullWidth
@@ -297,10 +331,10 @@ function EditTemplate() {
               alignItems: "center",
             }}
           >
-            <IconButton size="small">
+            {/* <IconButton size="small">
               <EmojiEmotionsIcon />
-            </IconButton>
-            <IconButton size="small">
+            </IconButton> */}
+            {/* <IconButton size="small">
               <FormatBoldIcon />
             </IconButton>
             <IconButton size="small">
@@ -316,9 +350,17 @@ function EditTemplate() {
               Add Variable
             </WhiteButton>
           </Box>
-        </Box>
+        </Box> */}
+        
+        <AddVariable/>
 
-        <TextField label="Footer" fullWidth margin="normal" helperText="0/60" />
+        <TextField
+          label="Footer"
+          inputProps={{ maxLength: 60 }}
+          fullWidth
+          margin="normal"
+          helperText="0/60"
+        />
       </Box>
 
       <Box
@@ -345,7 +387,7 @@ function EditTemplate() {
         </Typography>
 
         <Box mt={2}>
-          <WhiteButton
+          <Button
             variant="contained"
             startIcon={<AddIcon />}
             endIcon={<ArrowDropDownIcon />}
@@ -354,33 +396,20 @@ function EditTemplate() {
               alignItems: "left",
               display: "flex",
               justifyContent: "flex-start",
-
               paddingRight: "24px",
             }}
           >
             Add Button
-          </WhiteButton>
+          </Button>
           <Menu
             anchorEl={anchorEl}
             keepMounted
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <Box
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "5px 12px",
-              }}
-            >
-              <Typography variant="subtitle1">
-                Call-to-action Buttons
-              </Typography>
-            </Box>
-            {buttons.map((option) => (
+            {buttons.map((option, index) => (
               <MenuItem
-                key={option.value}
+                key={index}
                 onClick={() => handleMenuItemClick(option.label)}
               >
                 <Box>
@@ -392,45 +421,52 @@ function EditTemplate() {
               </MenuItem>
             ))}
           </Menu>
-          {selectedLabel === "Visit wbsite" && (
-            <Box mt={2}>
-              <VisitWebSite />
+          <Box
+            mt={2}
+            fullWidth
+            sx={{
+              alignItems: "center",
+              padding: 2,
+              boxShadow: 3,
+              borderLeft: "4px solid green",
+              borderRadius: 2,
+            }}
+          >
+            <Box sx={{ display: "flex" }}>
+              <LightbulbIcon />
+              <Typography level="body-md">
+                {" "}
+                We recommended adding the marketing opt-out button
+              </Typography>
             </Box>
-          )}
-          {selectedLabel === "Call Phone Number" && (
-            <Box mt={2}>
-              <CallPhoneNo />
-            </Box>
-          )}
-          {selectedLabel === "Copy offer code" && (
-            <Box mt={2}>
-              <CopyOfferCode />
-            </Box>
-          )}
-        </Box>
-        <Box
-          mt={2}
-          fullWidth
-          sx={{
-            alignItems: "center",
-            padding: 2,
-            boxShadow: 3,
-            borderLeft: "4px solid green",
-            borderRadius: 2,
-          }}
-        >
-          <Box sx={{ display: "flex" }}>
-            <LightbulbIcon />
-            <Typography level="body-md">
-              {" "}
-              We recommended adding the marketing opt-out button
+            <Typography level="body-sm" ml={2} align="left">
+              Allow customers to request to opt out of all marketing messeges.
+              This can help reduce blocks from customers and increase your
+              quality rating <a href="">learn more</a>
             </Typography>
           </Box>
-          <Typography level="body-sm" ml={2} align="left">
-            Allow customers to request to opt out of all marketing messeges.
-            This can help reduce blocks from customers and increase your quality
-            rating <a href="">learn more</a>
-          </Typography>
+        </Box>
+        <Box mb={1} sx={{ display: "flex", alignItems: "center" }}>
+          <Typography align="left">Call to action </Typography>
+          <FormHelperText>- optional</FormHelperText>
+        </Box>
+        <Box mb={2} p={2} sx={{ backgroundColor: "lightgray" }} borderRadius={2}>
+          <Box
+            sx={{
+              alignItems: "center",
+              flexDirection: "row",
+              gap: 2, 
+            }}
+          >
+            {contentList.map((content, index) => (
+              <Box key={index} mt={2}>
+                {content.label === "Visit website" && <VisitWebSite />}
+                {content.label === "Call Phone Number" && <CallPhoneNo />}
+                {content.label === "Copy offer code" && <CopyOfferCode />}
+                <Button onClick={() => handleRemoveContent(index)}>Remove</Button>
+              </Box>
+            ))}
+          </Box>
         </Box>
       </Box>
     </>

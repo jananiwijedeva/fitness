@@ -1,3 +1,5 @@
+import { HiSpeakerphone } from "react-icons/hi"; 
+import { TbBellRinging2Filled } from "react-icons/tb"; 
 import React, { useState } from "react";
 import { styled } from "@mui/system";
 import {
@@ -9,10 +11,7 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-
-import MarketingIcon from "@mui/icons-material/BusinessCenter";
 import BuildIcon from "@mui/icons-material/Build";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 
 const CustomButtonGroup = styled(ButtonGroup)(({ theme }) => ({
   width: "100%",
@@ -63,14 +62,14 @@ function SetUpTemplate() {
       <CustomButtonGroup variant="contained" >
         <CustomButton
           onClick={() => handleSubChange("Marketing")}
-          startIcon={<MarketingIcon />}
+          startIcon={<HiSpeakerphone />}
           value="Marketing"
         >
           Marketing
         </CustomButton>
         <CustomButton
           onClick={() => handleSubChange("Utility")}
-          startIcon={<NotificationsIcon />}
+          startIcon={<TbBellRinging2Filled />}
           value="Utility"
         >
           Utility
@@ -112,7 +111,7 @@ function SetUpTemplate() {
                 },
               }}
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               value="catalogue"
               control={<Radio />}
               label={
@@ -136,8 +135,8 @@ function SetUpTemplate() {
                   alignItems: "flex-start",
                 },
               }}
-            />
-            <FormControlLabel
+            /> */}
+            {/* <FormControlLabel
               value="flows"
               control={<Radio />}
               label={
@@ -161,7 +160,7 @@ function SetUpTemplate() {
                   alignItems: "flex-start",
                 },
               }}
-            />
+            /> */}
           </RadioGroup>
         )}
         {subSelection === "Utility" && (
@@ -196,7 +195,7 @@ function SetUpTemplate() {
                         },
                       }}
                     />
-                    <FormControlLabel
+                    {/* <FormControlLabel
                       value="flows"
                       control={<Radio />}
                       label={
@@ -224,7 +223,7 @@ function SetUpTemplate() {
                           alignItems: "flex-start",
                         },
                       }}
-                    />
+                    /> */}
                   </RadioGroup>
                 )}
               {subSelection === "Authentication" && (
