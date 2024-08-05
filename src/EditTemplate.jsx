@@ -61,6 +61,7 @@ function EditTemplate() {
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [selectedHeader, setSelectedHeader] = useState("none");
   const [contentList, setContentList] = useState([]);
+  const [showCallToAction, setShowCallToAction] = useState(false);
 
   const handleChange = (event) => {
     setSelectedHeader(event.target.value);
@@ -74,6 +75,7 @@ function EditTemplate() {
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    setShowCallToAction(true);
   };
 
   const handleClose = () => {
@@ -88,7 +90,7 @@ function EditTemplate() {
   //   setSelectionStart(e.target.selectionStart);
   //   setSelectionEnd(e.target.selectionEnd);
   // };
-  
+
   const renderContent = () => {
     switch (selectedHeader) {
       case "header1":
@@ -293,58 +295,7 @@ function EditTemplate() {
         </TextField>
         <Box mt={2}>{renderContent()}</Box>
 
-        {/* <Box
-          component="form"
-          mt={3}
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-          }}
-          noValidate
-          autoComplete="off"
-          fullWidth
-        >
-          <TextField
-            label="Body"
-            placeholder="Hello"
-            variant="outlined"
-            inputProps={{ maxLength: 1024 }}
-            multiline
-            rows={4}
-            fullWidth
-            helperText="5/1024"
-          />
-          <Box
-            mb={2}
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            {/* <IconButton size="small">
-              <EmojiEmotionsIcon />
-            </IconButton> */}
-            {/* <IconButton size="small">
-              <FormatBoldIcon />
-            </IconButton>
-            <IconButton size="small">
-              <FormatItalicIcon />
-            </IconButton>
-            <IconButton size="small">
-              <CodeIcon />
-            </IconButton>
-            <WhiteButton
-              variant="contained"
-              startIcon={<AddIcon fontSize="small" />}
-            >
-              Add Variable
-            </WhiteButton>
-          </Box>
-        </Box> */}
-        
-        <AddVariable/>
+        <AddVariable />
 
         <TextField
           label="Footer"
@@ -438,28 +389,36 @@ function EditTemplate() {
             </Typography>
           </Box>
         </Box>
-        <Box mb={1} mt={2} sx={{ display: "flex", alignItems: "center" }}>
-          <Typography align="left">Call to action </Typography>
-          <FormHelperText>- optional</FormHelperText>
-          
-        </Box>
-        <Box mb={2} p={2} sx={{ backgroundColor: "lightgray" }} borderRadius={2}>
-          <Box
-            sx={{
-              alignItems: "center",
-              flexDirection: "row",
-              gap: 2, 
-            }}
-          >
-            {contentList.map((content, index) => (
-              <Box key={index} mt={2}>
-                {content.label === "Visit website" && <VisitWebSite />}
-                {content.label === "Call Phone Number" && <CallPhoneNo />}
-                {content.label === "Copy offer code" && <CopyOfferCode />}
+        {showCallToAction && (
+          <>
+            <Box mb={1} mt={2} sx={{ display: "flex", alignItems: "center" }}>
+              <Typography align="left">Call to action</Typography>
+              <FormHelperText>- optional</FormHelperText>
+            </Box>
+            <Box
+              mb={2}
+              p={2}
+              sx={{ backgroundColor: "lightgray" }}
+              borderRadius={2}
+            >
+              <Box
+                sx={{
+                  alignItems: "center",
+                  flexDirection: "row",
+                  gap: 2,
+                }}
+              >
+                {contentList.map((content, index) => (
+                  <Box key={index} mt={2}>
+                    {content.label === "Visit website" && <VisitWebSite />}
+                    {content.label === "Call Phone Number" && <CallPhoneNo />}
+                    {content.label === "Copy offer code" && <CopyOfferCode />}
+                  </Box>
+                ))}
               </Box>
-            ))}
-          </Box>
-        </Box>
+            </Box>
+          </>
+        )}
       </Box>
     </>
   );

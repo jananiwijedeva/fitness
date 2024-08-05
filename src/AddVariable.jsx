@@ -22,6 +22,7 @@ function AddVariable() {
   const [selectionEnd, setSelectionEnd] = useState(null);
   const [variables, setVariables] = useState(new Set());
   const [variableTexts, setVariableTexts] = useState({});
+  const [showContent, setShowContent] = useState(false); // State to control the visibility
 
   const handleSelectionChange = (e) => {
     setSelectionStart(e.target.selectionStart);
@@ -44,7 +45,6 @@ function AddVariable() {
     const newVariables = new Set(matches);
     setVariables(newVariables);
 
-    // Remove text boxes for variables that no longer exist in the text
     const newVariableTexts = { ...variableTexts };
     Object.keys(newVariableTexts).forEach((key) => {
       if (!newVariables.has(key)) {
@@ -61,41 +61,33 @@ function AddVariable() {
   };
 
   const handleAddVariable = () => {
-    // Convert the variables set into an array and extract the numeric parts
     const currentVariables = Array.from(variables)
-        .map(v => parseInt(v.replace(/[{}]/g, ''), 10))
-        .sort((a, b) => a - b); // Sort the numeric parts
+      .map((v) => parseInt(v.replace(/[{}]/g, ""), 10))
+      .sort((a, b) => a - b);
 
-    // Check for gaps in the sequence
     for (let i = 0; i < currentVariables.length; i++) {
-        if (currentVariables[i] !== i + 1) {
-            console.warn("Variables are not in order. Cannot add new variable.");
-            return; // Stop adding the new variable
-        }
+      if (currentVariables[i] !== i + 1) {
+        console.warn("Variables are not in order. Cannot add new variable.");
+        return;
+      }
     }
 
-    // Determine the next index to use; it should be one greater than the current max
-    const nextIndex = currentVariables.length ? Math.max(...currentVariables) + 1 : 1;
+    const nextIndex = currentVariables.length
+      ? Math.max(...currentVariables) + 1
+      : 1;
 
-    // Check if the next index is valid
     if (nextIndex !== currentVariables.length + 1) {
-        console.warn("Cannot add a variable out of sequence.");
-        return; // Stop adding the new variable
+      console.warn("Cannot add a variable out of sequence.");
+      return;
     }
 
-    // Create the new variable string
     const newVariable = `{{${nextIndex}}}`;
 
-    // Add the new variable
     const newVariables = new Set([...variables, newVariable]);
     setVariables(newVariables);
-    setText(prevText => `${prevText} ${newVariable}`);
-};
-
-
-
-
-
+    setText((prevText) => `${prevText} ${newVariable}`);
+    setShowContent(true); // Show the content after adding the first variable
+  };
 
   const handleVariableTextChange = (variable, value) => {
     setVariableTexts((prevTexts) => ({
@@ -159,37 +151,44 @@ function AddVariable() {
         </WhiteButton>
       </Box>
 
-      <Box
-        padding={2}
-        fullWidth
-        autoComplete="off"
-        sx={{
-          alignItems: "center",
-          backgroundColor: "lightgray",
-          borderRadius: "3px",
-        }}
-      >
-        <Typography variant="h6" align="left"> Samples for body content </Typography>
-        <Typography variant="body2" align="left">
-          To help us review your message template, please add an example for
-          each variable in your body text. Do not use real customer information.
-          Could API hosted by Meta reviews templates and varible parameters to
-          protect the security oand integrity of our services
-        </Typography>
-        <Typography variant="h6" align="left" mt={2}> Body </Typography>
-        {Array.from(variables).map((variable, index) => (
-          <TextField
-            key={index}
-            label={`${variable}`}
-            variant="outlined"
-            fullWidth
-            
-            value={variableTexts[variable] || ""}
-            onChange={(e) => handleVariableTextChange(variable, e.target.value)}
-            sx={{ mt: 2 }}
-          />
-        ))}
-      </Box>
+      {showContent && (
+        <Box
+          padding={2}
+          fullWidth
+          autoComplete="off"
+          sx={{
+            alignItems: "center",
+            backgroundColor: "lightgray",
+            borderRadius: "3px",
+          }}
+        >
+          <Typography variant="h6" align="left">
+            Samples for body content
+          </Typography>
+          <Typography variant="body2" align="left">
+            To help us review your message template, please add an example for
+            each variable in your body text. Do not use real customer
+            information. Could API hosted by Meta reviews templates and varible
+            parameters to protect the security and integrity of our services
+          </Typography>
+          <Typography variant="h6" align="left" mt={2}>
+            Body
+          </Typography>
+          {Array.from(variables).map((variable, index) => (
+            <TextField
+              key={index}
+              label={`${variable}`}
+              variant="outlined"
+              fullWidth
+              value={variableTexts[variable] || ""}
+              onChange={(e) =>
+                handleVariableTextChange(variable, e.target.value)
+              }
+              sx={{ mt: 2 }}
+            />
+          ))}
+        </Box>
+      )}
     </Box>
   );
 }
