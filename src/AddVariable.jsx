@@ -64,30 +64,32 @@ function AddVariable() {
     const currentVariables = Array.from(variables)
       .map((v) => parseInt(v.replace(/[{}]/g, ""), 10))
       .sort((a, b) => a - b);
-
-    for (let i = 0; i < currentVariables.length; i++) {
-      if (currentVariables[i] !== i + 1) {
-        console.warn("Variables are not in order. Cannot add new variable.");
-        return;
-      }
+  
+    // Check if the current sequence is complete
+    const isSequential = currentVariables.every((value, index) => value === index + 1);
+  
+    if (!isSequential) {
+      console.warn("Variables are not in order. Cannot add new variable.");
+      return; // Stop adding if variables are not sequential
     }
-
-    const nextIndex = currentVariables.length
-      ? Math.max(...currentVariables) + 1
-      : 1;
-
+  
+    const nextIndex = currentVariables.length ? Math.max(...currentVariables) + 1 : 1;
+  
+    // Ensure the next index is sequential
     if (nextIndex !== currentVariables.length + 1) {
       console.warn("Cannot add a variable out of sequence.");
-      return;
+      return; // Stop adding if next index is not the correct sequence
     }
-
+  
+    // Add the new variable in the correct order
     const newVariable = `{{${nextIndex}}}`;
-
+  
     const newVariables = new Set([...variables, newVariable]);
     setVariables(newVariables);
     setText((prevText) => `${prevText} ${newVariable}`);
     setShowContent(true); // Show the content after adding the first variable
   };
+  
 
   const handleVariableTextChange = (variable, value) => {
     setVariableTexts((prevTexts) => ({
@@ -168,25 +170,27 @@ function AddVariable() {
           <Typography variant="body2" align="left">
             To help us review your message template, please add an example for
             each variable in your body text. Do not use real customer
-            information. Could API hosted by Meta reviews templates and varible
+            information. Could API hosted by Meta reviews templates and variable
             parameters to protect the security and integrity of our services
           </Typography>
           <Typography variant="h6" align="left" mt={2}>
             Body
           </Typography>
-          {Array.from(variables).map((variable, index) => (
-            <TextField
-              key={index}
-              label={`${variable}`}
-              variant="outlined"
-              fullWidth
-              value={variableTexts[variable] || ""}
-              onChange={(e) =>
-                handleVariableTextChange(variable, e.target.value)
-              }
-              sx={{ mt: 2 }}
-            />
-          ))}
+          {Array.from(variables)
+            .sort((a, b) => parseInt(a.replace(/[{}]/g, ""), 10) - parseInt(b.replace(/[{}]/g, ""), 10))
+            .map((variable, index) => (
+              <TextField
+                key={index}
+                label={`${variable}`}
+                variant="outlined"
+                fullWidth
+                value={variableTexts[variable] || ""}
+                onChange={(e) =>
+                  handleVariableTextChange(variable, e.target.value)
+                }
+                sx={{ mt: 2 }}
+              />
+            ))}
         </Box>
       )}
     </Box>
