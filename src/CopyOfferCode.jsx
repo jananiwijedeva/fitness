@@ -50,7 +50,7 @@ function CopyOfferCode() {
             value={selectedAction}
             onChange={handleActionChange}
             variant="outlined"
-            style={{ width: "200px", textAlign: "left" }}
+            style={{ width: "220px", textAlign: "left" }}
           >
             {action.map((option) => (
               <MenuItem key={option.value} value={option.value}>
@@ -63,7 +63,7 @@ function CopyOfferCode() {
             variant="outlined"
             fullWidth
             inputProps={{ maxLength: 25 }}
-            sx={{ width: "670px" }}
+            sx={{ width: "660px" }}
           />
           <TextField
             label="Offer code"
@@ -73,7 +73,7 @@ function CopyOfferCode() {
             value={offerCode}
             onChange={handleOfferCodeChange}
             helperText={`${offerCode.length}/15`}
-            sx={{ width: "670px", marginTop: "22px" }}
+            sx={{ width: "660px", marginTop: "22px" }}
           />
         </Alert>
       </Box>

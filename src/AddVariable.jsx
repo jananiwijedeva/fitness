@@ -183,6 +183,7 @@ function AddVariable() {
             label={`${variable}`}
             variant="outlined"
             fullWidth
+            
             value={variableTexts[variable] || ""}
             onChange={(e) => handleVariableTextChange(variable, e.target.value)}
             sx={{ mt: 2 }}

@@ -68,7 +68,7 @@ function CallPhoneNo() {
             value={actionValue}
             onChange={(e) => setActionValue(e.target.value)}
             variant="outlined"
-            style={{ width: "200px", textAlign: "left" }}
+            style={{ width: "220px", textAlign: "left" }}
           >
             {action.map((option) => (
               <MenuItem key={option.value} value={option.value}>
@@ -82,7 +82,7 @@ function CallPhoneNo() {
             fullWidth
             inputProps={{ maxLength: 25 }}
             helperText="13/25"
-            sx={{ width: "670px", marginTop: "22px" }}
+            sx={{ width: "640px", marginTop: "22px" }}
           />
           <TextField
             select
@@ -104,7 +104,7 @@ function CallPhoneNo() {
             fullWidth
             inputProps={{ maxLength: 2000 }}
             helperText="0/2000"
-            sx={{ width: "650px", marginTop: "22px" }}
+            sx={{ width: "640px", marginTop: "22px" }}
           />
         </Alert>
       </Box>

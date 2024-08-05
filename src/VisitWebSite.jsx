@@ -53,7 +53,7 @@ function VisitWebSite() {
                 value={actionType}
                 onChange={(e) => setActionType(e.target.value)}
                 variant="outlined"
-                style={{ width: "200px", textAlign: "left" }}
+                style={{ width: "220px", textAlign: "left" }}
               >
                 {action.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
@@ -69,7 +69,7 @@ function VisitWebSite() {
                 fullWidth
                 inputProps={{ maxLength: 25 }}
                 helperText={`${buttonText.length}/25`}
-                sx={{ width: "670px", marginTop: "22px" }}
+                sx={{ width: "640px", marginTop: "22px" }}
               />
               <TextField
                 select
@@ -77,7 +77,7 @@ function VisitWebSite() {
                 value={urlType}
                 onChange={(e) => setUrlType(e.target.value)}
                 variant="outlined"
-                style={{ width: "200px", textAlign: "left" }}
+                style={{ width: "300px", textAlign: "left" }}
               >
                 {type.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
@@ -93,7 +93,7 @@ function VisitWebSite() {
                 fullWidth
                 inputProps={{ maxLength: 2000 }}
                 helperText={`${websiteUrl.length}/2000`}
-                sx={{ width: "670px", marginTop: "22px" }}
+                sx={{ width: "640px", marginTop: "22px" }}
               />
             </Alert>
           </Box>
