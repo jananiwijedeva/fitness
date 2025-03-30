@@ -1,16 +1,39 @@
-# fitness_app
+# 🏋️‍♂️ FitBit (FullStack Fitness App with Web Admin Dashboard)
 
-A new Flutter project.
+A full-featured fitness tracking application built using **Flutter** for mobile and **PHP + Tailwind CSS** for the web admin dashboard.
 
-## Getting Started
+## 🚀 Features
+### 📱 **Mobile App (Flutter)**
+- Exercise Tracking
+- Goal Setting & Progress Monitoring
+- User Authentication (Login/Register)
+- REST API Integration for Data Communication
+- State Management & Navigation
+- Asynchronous Task Handling
+- Responsive UI Design
+- 
+### 💻 **Admin Dashboard (Web)**
+- Built with PHP & Tailwind CSS
+- Manage User Data & Fitness Content
+- CRUD Operations (Create, Read, Update, Delete)
+- API Integration with Flutter App
+- Admin Control for App Settings
+- Fully Responsive Design
 
-This project is a starting point for a Flutter application.
+## 🛠 Tech Stack
+- **Flutter** (Dart)
+- **PHP** (Backend)
+- **Tailwind CSS** (Styling)
+- **RESTful APIs**
+- **Firebase / Custom Auth System** (optional)
+- **MySQL** (for storing user data - if applicable)
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 📦 Setup Instructions
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Mobile App (Flutter)
+```bash
+git clone https://github.com/yourusername/flutter-fitness-app
+cd flutter-fitness-app
+flutter pub get
+flutter run
