@@ -33,7 +33,7 @@ A full-featured fitness tracking application built using **Flutter** for mobile 
 
 ### Mobile App (Flutter)
 ```bash
-git clone https://github.com/yourusername/flutter-fitness-app
-cd flutter-fitness-app
+git clone https://github.com/jananiwijedeva/fitness.git
+cd fitness
 flutter pub get
 flutter run
