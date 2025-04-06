@@ -27,13 +27,22 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 50),
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 100),
               child: Form(
                 key: _formKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    // App logo
+                    Image.asset(
+                      'assets/icons/app_logo.png', // Make sure the logo is placed in your assets folder
+                      width: 150, // Adjust the width as needed
+                      height: 150, // Adjust the height as needed
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.8,
                       decoration: BoxDecoration(
@@ -45,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: const InputDecoration(
                           labelText: 'Email',
                           contentPadding:
-                              EdgeInsets.symmetric(horizontal: 20.0),
+                          EdgeInsets.symmetric(horizontal: 20.0),
                           border: InputBorder.none,
                           prefixIcon: Icon(Icons.email),
                         ),
@@ -74,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: InputDecoration(
                           labelText: 'Password',
                           contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 20.0),
+                          const EdgeInsets.symmetric(horizontal: 20.0),
                           border: InputBorder.none,
                           prefixIcon: const Icon(Icons.lock),
                           suffixIcon: IconButton(
@@ -121,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const Registerscreen()));
+                                  const Registerscreen()));
                         },
                         child: const Text(
                           'Not Registered? Register',
