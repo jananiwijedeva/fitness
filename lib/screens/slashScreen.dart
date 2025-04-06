@@ -11,7 +11,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(context,
@@ -21,22 +20,21 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Colors.grey,
       body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Fitness App',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          Text(
-            'This is the best fitness app for your health',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          )
-        ],
-      )),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/splash_image.png', // Ensure the logo is placed in your assets folder
+              width: MediaQuery.of(context).size.width, // Full screen width
+              height: MediaQuery.of(context).size.height, // Full screen height
+              fit: BoxFit.cover, // Ensures the image covers the full screen without distortion
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
