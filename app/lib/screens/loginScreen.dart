@@ -1,5 +1,10 @@
+import 'dart:convert';
+
+import 'package:fitness_app/screens/dashboardScreen.dart';
 import 'package:fitness_app/screens/registerScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:toast/toast.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -15,8 +20,47 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
+  Future<void> login(TextEditingController email, TextEditingController password) async {
+  try {
+    String uri = 'http://192.168.8.101/fitness/fitness/admin/login.php';
+    var res = await http.post(Uri.parse(uri), body: {
+      "email": email.text,
+      "password": password.text,
+    });
+
+    if (res.statusCode == 200) {
+      final responseData = json.decode(res.body);
+
+      if (responseData['success']) {
+        final String name = responseData['name'];
+        final String email = responseData['email'];
+        Toast.show("Login successful",
+            duration: Toast.lengthShort, gravity: Toast.bottom);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    DashboardScreen(name: name, email: email)));
+      } else {
+        final String errorMessage = responseData['message'];
+        Toast.show(errorMessage,
+            duration: Toast.lengthShort, gravity: Toast.bottom);
+      }
+    } else {
+      Toast.show("Server error: ${res.statusCode}",
+          duration: Toast.lengthShort, gravity: Toast.bottom);
+    }
+  } catch (e) {
+    print(e);
+    Toast.show("An error occurred, please try again later",
+        duration: Toast.lengthShort, gravity: Toast.bottom);
+  }
+}
+
+
   @override
   Widget build(BuildContext context) {
+    ToastContext().init(context);
     return Scaffold(
         backgroundColor: Colors.grey,
         appBar: AppBar(
@@ -54,14 +98,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: const InputDecoration(
                           labelText: 'Email',
                           contentPadding:
-                          EdgeInsets.symmetric(horizontal: 20.0),
+                              EdgeInsets.symmetric(horizontal: 20.0),
                           border: InputBorder.none,
                           prefixIcon: Icon(Icons.email),
                         ),
-                        validator: (value){
-                          if (value == null || value.trim().isEmpty){
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
                             return 'Please Enter an email';
-                          }else if (!value.contains('@')){
+                          } else if (!value.contains('@')) {
                             return 'Please enter a valid email address';
                           }
                           return null;
@@ -83,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: InputDecoration(
                           labelText: 'Password',
                           contentPadding:
-                          const EdgeInsets.symmetric(horizontal: 20.0),
+                              const EdgeInsets.symmetric(horizontal: 20.0),
                           border: InputBorder.none,
                           prefixIcon: const Icon(Icons.lock),
                           suffixIcon: IconButton(
@@ -102,10 +146,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         //hide the text
                         obscureText: !_passwordVisible,
 
-                        validator: (value){
-                          if (value == null || value.trim().isEmpty){
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
                             return 'Please Enter a password';
-                          }else if (value.length < 6){
+                          } else if (value.length < 6) {
                             return 'Password must be at least 6 chara  ';
                           }
                           return null;
@@ -116,7 +160,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 20,
                     ),
                     ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState!.save();
+                          }
+                          login(email, password);
+                        },
                         child: const Text(
                           'Login',
                           style: TextStyle(color: Colors.black54),
@@ -130,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                  const Registerscreen()));
+                                      const Registerscreen()));
                         },
                         child: const Text(
                           'Not Registered? Register',
