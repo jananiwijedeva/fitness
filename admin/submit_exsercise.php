@@ -38,7 +38,7 @@
             if(move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)){
                 if($stmt->execute()){
                     echo "Exercise added successfully";
-                    //header("Location: exercises.php");
+                    header("Location: add_exercise.php");
                 }else{
                     echo "Sorry, there was an error adding your file.";
                 }
