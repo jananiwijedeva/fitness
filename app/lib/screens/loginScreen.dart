@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> login(TextEditingController email, TextEditingController password) async {
   try {
-    String uri = 'http://192.168.8.101/fitness/fitness/admin/login.php';
+    String uri = 'http://192.168.8.100/fitness/fitness/admin/login.php';
     var res = await http.post(Uri.parse(uri), body: {
       "email": email.text,
       "password": password.text,

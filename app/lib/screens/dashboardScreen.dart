@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fitness_app/screens/detailedCardScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,7 +14,7 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   List<dynamic> exercises = [];
-  String baseUrl = 'http://192.168.8.101/fitness/fitness/admin/';
+  String baseUrl = 'http://192.168.8.100/fitness/fitness/admin/';
 
   Future<void> _fetchExercises() async {
     try {
@@ -57,24 +58,41 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : Column(
-                children: [
-                  const SizedBox(height: 20,),
-                  Text("Welcome,  ${widget.name}",style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
-                  const SizedBox(height: 10,),
-                  const Text("Exercise List",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
-
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: exercises.length,
-                      itemBuilder: (context, index) {
-                        final exercise = exercises[index];
-                        final imageUrl = '$baseUrl${exercise['image_url']}';
-                        return Padding(
+            : Column(children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                Text("Welcome,  ${widget.name}",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 16)),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text(
+                  "Exercise List",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: exercises.length,
+                    itemBuilder: (context, index) {
+                      final exercise = exercises[index];
+                      final imageUrl = '$baseUrl${exercise['image_url']}';
+                      return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: GestureDetector(
                             onTap: () {
-                              
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailedCardScreen(
+                                            imageUrl: imageUrl,
+                                            name: exercise['name'],
+                                            slogan: exercise['slogan'],
+                                            second: int.parse(exercise['second']),
+                                            userName: widget.name,
+                                            userEmail: widget.email,
+                                          )));
                             },
                             child: Card(
                               child: ListTile(
@@ -87,12 +105,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 trailing: Text("${exercise['second']}s"),
                               ),
                             ),
-                          )
-                        );
-                      },
-                    ),
-                  )
-                ]
-              ));
+                          ));
+                    },
+                  ),
+                )
+              ]));
   }
 }

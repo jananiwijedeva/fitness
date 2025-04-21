@@ -23,7 +23,7 @@ class _RegisterscreenState extends State<Registerscreen> {
 
   Future<void> insertRecord () async {
     try{
-      String uri = 'http://192.168.8.101/fitness/fitness/admin/register.php';
+      String uri = 'http://192.168.8.100/fitness/fitness/admin/register.php';
       var res = await http.post(Uri.parse(uri), body: {
         "name": name.text,
         "email": email.text,
